@@ -11,9 +11,7 @@ import com.example.anmieapplication.databinding.FragmentDetailAnimeBinding
 import com.example.anmieapplication.utils.Logger
 import java.lang.StringBuilder
 
-
 class DetailAnimeFragment : Fragment() {
-
     private lateinit var binding: FragmentDetailAnimeBinding
     private val navigationArgs: DetailAnimeFragmentArgs by navArgs()
 
@@ -34,6 +32,8 @@ class DetailAnimeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val animeItem = navigationArgs.argAnimeItem
         Logger.printLog(TAG, animeItem.toString())
+
+        // Get image from image url using Glide
         Glide.with(requireActivity())
             .load(animeItem.imageUrl)
             .centerCrop()

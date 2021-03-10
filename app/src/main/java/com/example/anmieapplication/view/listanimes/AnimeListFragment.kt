@@ -22,11 +22,11 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class AnimeListFragment : Fragment() {
-
     private lateinit var animeListBinding: AnimeListFragmentBinding
     private lateinit var adapterAnimes: AnimesListAdapter
     private lateinit var viewModel: AnimesViewModel
     private var animesList = ArrayList<SearchResultItem>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,6 +41,8 @@ class AnimeListFragment : Fragment() {
         val layoutManager = LinearLayoutManager(activity)
         animeListBinding.recyclerviewAnimes.layoutManager = layoutManager
         animeListBinding.recyclerviewAnimes.adapter = adapterAnimes
+
+        // Set on query text listener to get filtered list based on text in search view
         animeListBinding.animeSearch.setOnQueryTextListener(object :
             SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {

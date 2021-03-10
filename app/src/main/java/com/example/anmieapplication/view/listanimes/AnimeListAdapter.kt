@@ -29,6 +29,8 @@ class AnimesListAdapter(private var listSearchResults: List<SearchResultItem>) :
             .load(itemAnimes.imageUrl)
             .centerCrop()
             .into(holder.binding.imageAnime)
+
+        // Sets on Click listener for recyclerview and navigate with details
         holder.binding.containerItemAnime.setOnClickListener { itemView ->
             val actionDetailView =
                 AnimeListFragmentDirections.actionItemClickToDetailAnimeFragment(itemAnimes)
@@ -47,5 +49,4 @@ class AnimesListAdapter(private var listSearchResults: List<SearchResultItem>) :
 
     inner class AnimesViewHolder(var binding: ItemListAnimeBinding) :
         RecyclerView.ViewHolder(binding.root)
-
 }
