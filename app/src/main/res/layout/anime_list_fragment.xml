@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.anmieapplication.view.listanimes.AnimeListFragment">
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/anime_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:queryHint="Search here"
+        android:textCursorDrawable="@null"
+        app:iconifiedByDefault="false"
+        app:queryBackground="@null" >
+        <requestFocus />
+    </androidx.appcompat.widget.SearchView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_animes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/anime_search" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="@dimen/dimen_progress_bar"
+        android:layout_height="@dimen/dimen_progress_bar"
+        android:layout_centerInParent="true"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/purple_700" />
+
+</RelativeLayout>

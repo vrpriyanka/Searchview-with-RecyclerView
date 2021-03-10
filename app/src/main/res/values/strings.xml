@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Anmie Application</string>
+    <string name="empty_description"> Anime</string>
+    <string name="episodes">Episodes:</string>
+    <string name="rated">Rated:</string>
+    <string name="image">Image</string>
+</resources>
