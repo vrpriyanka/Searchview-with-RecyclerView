@@ -9,6 +9,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.anmieapplication.constants.AppConstants.DEFAULT_SEARCH
 import com.example.anmieapplication.constants.AppConstants.LOG_TAG
 import com.example.anmieapplication.data.network.ApiHelper
 import com.example.anmieapplication.data.network.RetrofitBuilder
@@ -46,14 +47,18 @@ class AnimeListFragment : Fragment() {
         animeListBinding.animeSearch.setOnQueryTextListener(object :
             SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                return false
+                Logger.printLog(LOG_TAG, "Search view ----->$query")
+                animeListBinding.animeSearch.clearFocus()
+                return true
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
                 // inside on query text change method we are
                 // calling a method to filter our recycler view.
+                Logger.printLog(LOG_TAG, "in onQueryTextChange -----> $newText")
+                fetchSearchResult(newText)
                 filter(newText)
-                return false
+                return true
             }
         })
     }
@@ -82,14 +87,17 @@ class AnimeListFragment : Fragment() {
         }
     }
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         (requireActivity() as AppCompatActivity).supportActionBar?.show()
         viewModel = ViewModelProvider(this).get(AnimesViewModel::class.java)
         viewModel.setRepository(AnimeRepository(ApiHelper(RetrofitBuilder.apiService)))
 
-        viewModel.getListAnimes().observe(viewLifecycleOwner, {
+        fetchSearchResult(DEFAULT_SEARCH)
+    }
+
+    private fun fetchSearchResult(searchKey: String) {
+        viewModel.getListAnimes(searchKey).observe(viewLifecycleOwner, {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
@@ -110,10 +118,9 @@ class AnimeListFragment : Fragment() {
         })
     }
 
-    private fun retrieveList(listSearchResults: List<SearchResultItem>) {
-        animesList = listSearchResults as ArrayList<SearchResultItem>
+    private fun retrieveList(listAnimes: List<SearchResultItem>) {
         adapterAnimes.apply {
-            addAnimeItems(listSearchResults)
+            addAnimeItems(listAnimes)
             notifyDataSetChanged()
         }
     }

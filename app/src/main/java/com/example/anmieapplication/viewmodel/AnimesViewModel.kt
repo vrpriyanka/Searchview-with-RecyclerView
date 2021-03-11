@@ -13,10 +13,10 @@ class AnimesViewModel : ViewModel() {
         this.animeRepository = animesRepository
     }
 
-    fun getListAnimes() = liveData(Dispatchers.IO) {
+    fun getListAnimes(searchValue : String) = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
         try {
-            emit(Resource.success(data = animeRepository.getListAnimes("naruto").results))
+            emit(Resource.success(data = animeRepository.getListAnimes(searchValue).results))
         } catch (exception: Exception) {
             emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
         }
