@@ -1,2 +1,2 @@
 # Searchview-with-RecyclerView
-PreScreen Fidelity project
+Sample project
